@@ -7,6 +7,7 @@ class Quotes extends Component {
   render() {
     const quoteCards = this.props.quotes.map(
       quote => <QuoteCard 
+        key={quote.id}
         quote={quote} 
         removeQuote={this.props.removeQuote} 
         upvoteQuote={this.props.upvoteQuote}
@@ -25,7 +26,6 @@ class Quotes extends Component {
           <div className="row">
             <div className="col-md-4">
               {quoteCards}
-              {this.props.quotes.length > 0 ? this.props.quotes[0].votes : null}
             </div>
           </div>
         </div>

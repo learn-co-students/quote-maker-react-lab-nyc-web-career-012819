@@ -1,21 +1,32 @@
 export default function quoteReducer(state = [], action) {
-  let i, newState;
+  let index, newState;
 
   switch (action.type) {
     case 'ADD_QUOTE':
       return [...state, action.quote];
     case 'REMOVE_QUOTE':
-      i = state.findIndex(quote => quote.id === action.id);
-      return [...state.slice(0, i), ...state.slice(i + 1)];
+      index = state.findIndex(quote => quote.id === action.id);
+      return [...state.slice(0, index), ...state.slice(index + 1)];
     case 'UPVOTE_QUOTE':
-      newState = [...state];
-      newState.find(quote => quote.id === action.id).votes += 1;
-      return newState;
+      // Method #1
+      index = state.findIndex(quote => quote.id === action.id);
+      return [
+        ...state.slice(0, index - 1),
+        Object.assign({}, state[index], { votes: state[index].votes + 1 }),
+        ...state.slice(index + 1)
+      ];
     case 'DOWNVOTE_QUOTE':
-      newState = [...state];
+      // Method #2
+      newState = state.map(quote => ({...quote}));
       newState.find(quote => quote.id === action.id).votes -= 1;
       return newState;
     default:
       return state;
   }
 }
+
+// Method #3:
+// index = state.findIndex(quote => quote.id === action.id);
+// newState = [...state];
+// newState[index] = Object.assign({}, newState[index], { votes: state[index].votes - 1 });
+// return newState;

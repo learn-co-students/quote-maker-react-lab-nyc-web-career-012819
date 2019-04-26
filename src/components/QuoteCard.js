@@ -1,7 +1,8 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
-const QuoteCard = (props) =>
-  <div>
+const QuoteCard = (props) => {
+  return <div>
     <div className="card card-inverse card-success card-primary mb-3 text-center">
       <div className="card-block">
         <blockquote className="card-blockquote">
@@ -36,6 +37,7 @@ const QuoteCard = (props) =>
         <div>Votes: {props.quote.votes}</div>
       </div>
     </div>
-  </div>;
+  </div>
+}
 
-export default QuoteCard;
+export default connect()(QuoteCard);
